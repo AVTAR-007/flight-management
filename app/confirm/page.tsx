@@ -29,7 +29,7 @@ export default async function ConfirmPage({
           <ShieldAlert className="h-12 w-12" />
         </div>
         <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '12px' }}>Booking Not Found</h2>
-        <p style={{ color: 'var(--gray)', marginBottom: '32px' }}>We couldn't locate any booking with the provided PNR code.</p>
+        <p style={{ color: 'var(--gray)', marginBottom: '32px' }}>{"We couldn't locate any booking with the provided PNR code."}</p>
         <Link href="/search" className="btn-gold">
           Back to Search
         </Link>

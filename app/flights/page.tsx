@@ -106,7 +106,7 @@ export default async function FlightsPage({
             No flights found
           </h2>
           <p style={{ color: 'var(--gray)', marginBottom: '32px', fontSize: '15px', fontWeight: 300 }}>
-            We couldn't find any scheduled flights on this route for the selected date.
+            {"We couldn't find any scheduled flights on this route for the selected date."}
           </p>
           <Link href="/search" className="btn-gold">
             <ArrowLeft className="h-4 w-4" />

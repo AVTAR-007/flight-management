@@ -6,8 +6,10 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plane, Search, Briefcase, LogOut, LogIn, Menu, X } from 'lucide-react'
 
+import { User } from '@supabase/supabase-js'
+
 interface NavbarProps {
-  user: any // Pass user from layout
+  user: User | null
 }
 
 export default function Navbar({ user }: NavbarProps) {

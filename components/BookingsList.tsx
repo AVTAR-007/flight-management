@@ -3,12 +3,18 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { cancelBooking, fetchAlternativeFlights, rescheduleBooking } from '@/app/actions/booking'
-import { Flight } from '@/types'
+import { Flight, Booking, Seat, Passenger } from '@/types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Inbox, Plane, Calendar, User, Ticket, RefreshCw, X, AlertCircle, Trash2, ArrowRight } from 'lucide-react'
 
+export interface ExtendedBooking extends Booking {
+  flights: Flight
+  seats: Seat
+  passengers?: Passenger[]
+}
+
 interface BookingsListProps {
-  bookings: any[]
+  bookings: ExtendedBooking[]
 }
 
 export default function BookingsList({ bookings }: BookingsListProps) {
@@ -42,7 +48,7 @@ export default function BookingsList({ bookings }: BookingsListProps) {
     router.refresh()
   }
 
-  const handleRescheduleOpen = async (booking: any) => {
+  const handleRescheduleOpen = async (booking: ExtendedBooking) => {
     setLoading(booking.id)
     const result = await fetchAlternativeFlights(
       booking.flights.origin,
@@ -137,7 +143,7 @@ export default function BookingsList({ bookings }: BookingsListProps) {
           No bookings yet
         </h2>
         <p style={{ color: 'var(--gray)', marginBottom: '32px', fontSize: '15px', fontWeight: 300 }}>
-          You haven't booked any premium journeys yet. Start by exploring flights.
+          {"You haven't booked any premium journeys yet. Start by exploring flights."}
         </p>
         <a href="/search" className="btn-gold">
           <span>Search Flights</span>

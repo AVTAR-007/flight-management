@@ -3,8 +3,17 @@
 import { useState, useEffect } from 'react'
 import { Download, X } from 'lucide-react'
 
+interface BeforeInstallPromptEvent extends Event {
+  readonly platforms: string[];
+  readonly userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed';
+    platform: string;
+  }>;
+  prompt(): Promise<void>;
+}
+
 export default function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showBanner, setShowBanner] = useState(false)
 
   useEffect(() => {
@@ -18,7 +27,7 @@ export default function InstallPrompt() {
 
     const handler = (e: Event) => {
       e.preventDefault()
-      setDeferredPrompt(e)
+      setDeferredPrompt(e as BeforeInstallPromptEvent)
       const dismissed = sessionStorage.getItem('pwa-prompt-dismissed')
       if (!dismissed) {
         setShowBanner(true)
