@@ -1,65 +1,192 @@
-import Image from "next/image";
+'use client'
+
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { Plane, Search, Briefcase, Calendar, ShieldCheck, Ticket, RefreshCw } from 'lucide-react'
 
 export default function Home() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  }
+
+  const features = [
+    {
+      icon: Search,
+      title: 'Real-time Search',
+      desc: 'Instantly find and book direct or connecting flights with transparent pricing.',
+    },
+    {
+      icon: Ticket,
+      title: 'Interactive Seat Selection',
+      desc: 'Choose your preferred seat from our live interactive 3D cabin layout maps.',
+    },
+    {
+      icon: RefreshCw,
+      title: 'Flexible Bookings',
+      desc: 'Reschedule your flights or cancel instantly with seamless automated refunds.',
+    },
+  ]
+
+  const stats = [
+    { num: '8+', label: 'Premium Routes' },
+    { num: '4', label: 'Key Cities' },
+    { num: '100%', label: 'Secure Checkout' },
+  ]
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      style={{
+        minHeight: '80vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '60px 0',
+      }}
+    >
+      {/* Badge Chip */}
+      <motion.div variants={itemVariants} className="section-badge animate-float">
+        <Plane className="h-3.5 w-3.5" />
+        <span>Premium Flight Experience</span>
+      </motion.div>
+
+      {/* Hero Title */}
+      <motion.h1
+        variants={itemVariants}
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: 'clamp(44px, 7vw, 76px)',
+          fontWeight: 900,
+          lineHeight: 1.1,
+          letterSpacing: '-2px',
+          marginBottom: '24px',
+          textAlign: 'center',
+          maxWidth: '800px',
+        }}
+      >
+        Travel the world<br />
+        with <em style={{ color: 'var(--gold)', fontStyle: 'italic', fontWeight: 'inherit' }}>elegance</em>
+      </motion.h1>
+
+      {/* Subtitle */}
+      <motion.p
+        variants={itemVariants}
+        style={{
+          color: 'var(--gray)',
+          fontSize: 'clamp(16px, 2.5vw, 19px)',
+          lineHeight: 1.7,
+          marginBottom: '40px',
+          maxWidth: '520px',
+          textAlign: 'center',
+          fontWeight: 300,
+        }}
+      >
+        Search, book, and manage your flights with elegance. SkyBook offers a premium experience tailored for the modern traveller.
+      </motion.p>
+
+      {/* Call to Actions */}
+      <motion.div
+        variants={itemVariants}
+        style={{
+          display: 'flex',
+          gap: '16px',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          marginBottom: '80px',
+        }}
+      >
+        <Link href="/search" className="btn-gold">
+          <span>Search Flights</span>
+          <Plane className="h-4 w-4" style={{ transform: 'rotate(90deg)' }} />
+        </Link>
+        <Link href="/bookings" className="btn-outline">
+          <Briefcase className="h-4 w-4 text-[var(--gold)]" />
+          <span>My Bookings</span>
+        </Link>
+      </motion.div>
+
+      {/* Stats Section */}
+      <motion.div
+        variants={itemVariants}
+        style={{
+          width: '100%',
+          maxWidth: '800px',
+          borderTop: '1px solid var(--border)',
+          paddingTop: '60px',
+          marginBottom: '80px',
+        }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '32px' }}>
+          {stats.map((s, idx) => (
+            <div key={idx} className="stat-card">
+              <div className="stat-card-value">{s.num}</div>
+              <div className="stat-card-label">{s.label}</div>
+            </div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </motion.div>
+
+      {/* Features Section */}
+      <motion.div
+        variants={itemVariants}
+        style={{
+          width: '100%',
+          maxWidth: '1000px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '24px',
+          marginTop: '20px',
+        }}
+      >
+        {features.map((feat, idx) => {
+          const Icon = feat.icon
+          return (
+            <div key={idx} className="glass-card glass-card-hover" style={{ padding: '32px' }}>
+              <div
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '12px',
+                  background: 'rgba(201, 168, 76, 0.08)',
+                  border: '1px solid rgba(201, 168, 76, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '20px',
+                  color: 'var(--gold)',
+                }}
+              >
+                <Icon className="h-6 w-6" />
+              </div>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px', fontFamily: "'Playfair Display', serif" }}>
+                {feat.title}
+              </h3>
+              <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: 1.6, fontWeight: 300 }}>
+                {feat.desc}
+              </p>
+            </div>
+          )
+        })}
+      </motion.div>
+    </motion.div>
+  )
 }
