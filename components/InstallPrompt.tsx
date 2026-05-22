@@ -17,6 +17,13 @@ export default function InstallPrompt() {
   const [showBanner, setShowBanner] = useState(false)
 
   useEffect(() => {
+    // Register Service Worker
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch((err) => {
+        console.error('Service worker registration failed:', err)
+      })
+    }
+
     // Check display mode
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches
     const isAlreadyInstalled = localStorage.getItem('pwa-installed') === 'true'
