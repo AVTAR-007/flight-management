@@ -4,6 +4,10 @@ SkyBook is a state-of-the-art, high-fidelity flight booking and management syste
 
 ## 🚀 Live Deployment
 * **Production URL:** [https://flight-management-avtar-007-avtar-007s-projects.vercel.app](https://flight-management-avtar-007-avtar-007s-projects.vercel.app)
+* **Alternative Domains:**
+  * [flight-management-avtar-007s-projects.vercel.app](https://flight-management-avtar-007s-projects.vercel.app)
+  * [flight-management-git-master-avtar-007s-projects.vercel.app](https://flight-management-git-master-avtar-007s-projects.vercel.app)
+  * [flight-management-z1w3rzlol-avtar-007s-projects.vercel.app](https://flight-management-z1w3rzlol-avtar-007s-projects.vercel.app)
 * **Hosting Platform:** Vercel
 * **Database Backend:** Supabase (PostgreSQL)
 
@@ -56,7 +60,7 @@ Manages the active Supabase session and client caching:
 * **Persistence:** Uses `persist` with `partialize` to **persist only the auth session token**, excluding the cached bookings list to ensure users always fetch real-time booking details on login.
 
 ## 📱 Progressive Web App (PWA) Integration
-SkyBook is fully configured as an installable Progressive Web App (PWA) using `next-pwa`:
+SkyBook is fully configured as an installable Progressive Web App (PWA) using a custom service worker (`public/sw.js`):
 * **App Manifest:** Dynamically generated using Next.js Metadata API at `app/manifest.ts`, configuring standalone display, color branding, and app icons.
 * **App Icons:** Custom brand assets at `/public/icons/` including a modern SVG logo and 192x192/512x512 PNG assets.
 * **Offline Fallback Page:** Static offline view at `/offline` that renders automatically when the browser loses network connection.
